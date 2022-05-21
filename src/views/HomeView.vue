@@ -19,10 +19,12 @@ import About from '@/components/bin/About.vue';
 import Input from '@/components/Input.vue';
 import NotFound from '@/components/NotFound.vue';
 import ShellPrompt from '@/components/ShellPrompt.vue';
+import Help from '@/components/bin/Help.vue';
+
 
 export default defineComponent ({
   name: 'home',
-  components: { About, HelloWorld, NotFound, Input, ShellPrompt },
+  components: { About, HelloWorld, NotFound, Input, ShellPrompt, Help },
   setup() {
     const history = ref(['helloWorld', 'about']);
     

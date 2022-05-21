@@ -39,6 +39,8 @@ export default defineComponent ({
           return;
       }
 
+      console.log(`command: ${inputCommand.value} exist`)
+
       props.history.push(inputCommand.value);
       historyIndex.value += 1;
       inputCommand.value = '';
@@ -74,6 +76,8 @@ export default defineComponent ({
 <style scoped lang="scss">
  input {
     border: none;
+    background-color: inherit;
+    color: inherit;
 
     :focus {
       outline: none;

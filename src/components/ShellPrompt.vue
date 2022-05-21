@@ -1,6 +1,6 @@
 <template>
     <div class="shell-prompt">
-        <span>guest</span>@<span>term.adodotkong</span>:~ 
+        <span class="name">guest</span>@<span class="domain">term.adodotkong</span>:~ 
         <span v-if="props.command">{{ props.command }}</span>
     </div>
 </template>
@@ -14,11 +14,16 @@ export default defineComponent ({
   setup(props) {
     return { props }
   }
-
 })
 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.name {
+  color: var(--cyan);
+}
+.domain {
+  color: var(--magenta);
+}
 </style>
