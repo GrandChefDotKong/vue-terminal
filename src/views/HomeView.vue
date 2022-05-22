@@ -1,9 +1,8 @@
 <template>
   <div class="home">
-    <h3>Home</h3>
-    <div v-for="h in history">
-      <shell-prompt :command="h" />
-      <component :is="h" />
+    <div v-for="h in history" :key="h.id">
+      <shell-prompt :command="h.input" />
+      <component :is="h.process" />
     </div>
     <div class="commandInputLine">
       <shell-prompt />
@@ -14,19 +13,31 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import HelloWorld from '@/components/bin/HelloWorld.vue'; // @ is an alias to /src
-import About from '@/components/bin/About.vue';
-import Input from '@/components/Input.vue';
+import { about, helloWorld, banner, help, date, login } from '@/components/bin';
 import NotFound from '@/components/NotFound.vue';
+import Input from '@/components/Input.vue';
 import ShellPrompt from '@/components/ShellPrompt.vue';
-import Help from '@/components/bin/Help.vue';
 
+interface History {
+  id: number,
+  input: string;
+  process: string;
+  args: string[] | null //for future update
+}
 
 export default defineComponent ({
   name: 'home',
-  components: { About, HelloWorld, NotFound, Input, ShellPrompt, Help },
+  components: { about, helloWorld, banner, NotFound, login,
+  Input, ShellPrompt, help, date },
   setup() {
-    const history = ref(['helloWorld', 'about']);
+    const now = new Date;
+    const history = ref<History[]>([{
+      id: Date.UTC(now.getFullYear(), now.getHours(), 
+      now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
+      input: '',
+      process: 'banner',
+      args: null
+    }]);
     
     return { history }
   }
@@ -41,6 +52,8 @@ export default defineComponent ({
   .commandInputLine {
     display: flex;
     flex-direction: row;
-
+  }
+  .home {
+    padding-top: 24px;
   }
 </style>

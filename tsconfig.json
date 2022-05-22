@@ -34,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/firebase/config.ts"  ],
   "exclude": [
     "node_modules"
   ]
