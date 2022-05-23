@@ -4,3 +4,6 @@ export { default as help } from './Help.vue';
 export { default as banner } from './Banner.vue';
 export { default as date } from './Date.vue';
 export { default as login } from './Login.vue';
+export { default as logout } from './Logout.vue';
+export { default as signup } from './Signup.vue';
+

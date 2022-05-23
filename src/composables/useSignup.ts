@@ -2,10 +2,10 @@ import { ref } from "vue";
 import { projectAuth } from '../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
-const error = ref(null);
+const error = ref<string | null>(null);
 const isPending = ref(false);
 
-const signup = async (email, password, displayName) => {
+const signup = async (email: string, password: string, displayName: string) => {
     error.value = null;
     isPending.value = true;
 
@@ -22,9 +22,11 @@ const signup = async (email, password, displayName) => {
         error.value = null;
         isPending.value = false;
 
+        console.log(res.user)
+
         return res;
 
-    } catch (err) {
+    } catch (err: any) {
         console.log(err.message);
         error.value = err.message;
         isPending.value = false;
@@ -34,7 +36,7 @@ const signup = async (email, password, displayName) => {
 
 const useSignup = () => {
 
-    return { error, signup }
+    return { error, signup, isPending }
 }
 
 export default useSignup;

@@ -1,32 +1,32 @@
 <template>
   <form @keydown.enter.prevent="handleSubmit">
-    <label for="email">Email :</label>
-    <input type="text" name="email" v-model="email" :disabled="inputDisabled" required><br>
-    <label for="password">Password :</label>
-    <input type="password" name="password" v-model="password" :disabled="inputDisabled" required>
+    <label for="email">Email :</label><input type="text" name="email" v-model="email" :disabled="inputDisabled" required><br>
+    <label for="password">Password :</label><input type="password" name="password" v-model="password" :disabled="inputDisabled" required><br>
+    <label for="displayName">Name :</label><input type="text" name="displayName" v-model="displayName" :disabled="inputDisabled" required><br>
     <div v-if="error" class="error">{{ error }}</div>
   </form>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import useSignin from '@/composables/useSignin';
+import useSignup from '@/composables/useSignup';
 import useProccess from '@/composables/useProccess';
 
 export default defineComponent ({
-  name: 'login',
+  name: 'signup',
   setup() {
-    const { signin, error, isPending } = useSignin();
+    const { signup, error } = useSignup();
     const { endProccess } = useProccess();
 
     const inputDisabled = ref(false);
 
     const email = ref('');
     const password = ref('');
+    const displayName =ref('');
 
     const handleSubmit = async () => {
-
-      const res = await signin(email.value, password.value);
+    
+      const res = await signup(email.value, password.value, displayName.value);
       if(!error.value) {
           console.log('successfully signed in ;)');
           inputDisabled.value = true;
@@ -34,7 +34,7 @@ export default defineComponent ({
       } 
     }
 
-    return { handleSubmit, error, email, password, isPending, inputDisabled }
+    return { handleSubmit, error, email, password, displayName, inputDisabled }
   }
 })
 </script>

@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { projectAuth } from '../firebase/config';
 import { signOut } from 'firebase/auth'
 
-const error = ref(null);
+const error = ref<string | null>(null);
 const isPending = ref(false);
 
 const signout = async () => {

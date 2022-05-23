@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onUpdated } from 'vue';
 import getUser from '@/composables/getUser';
 
 export default defineComponent ({
@@ -16,6 +16,8 @@ export default defineComponent ({
   setup(props) {
 
     const { user } = getUser();
+
+    onUpdated(() => console.log('updated'))
 
     return { props, user }
   }

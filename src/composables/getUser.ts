@@ -7,7 +7,7 @@ const user = ref(projectAuth.currentUser);
 onAuthStateChanged(projectAuth, (_user) => {
     if(_user) {
         user.value = _user;
-    } 
+    }
 });
 
 const getUser = () => {

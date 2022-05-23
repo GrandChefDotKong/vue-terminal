@@ -7,18 +7,19 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import useProccess from '@/composables/useProccess';
+import { defineComponent } from 'vue';
 
-@Options({
+export default defineComponent ({
   name: 'about',
-  props: {
-    msg: String
+  setup() {
+
+    const { endProccess } = useProccess();
+
+    endProccess();
+    
   }
 })
-
-export default class extends Vue {
-  msg!: string
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import * as bin from './bin';
+import useProccess from '@/composables/useProccess';
 
 export default defineComponent ({
   name: 'input-command',
@@ -26,6 +27,8 @@ export default defineComponent ({
     const inputCommand = ref<string>('');
     const historyIndex = ref<number>(props.history.length);
     const filter = ref(null);
+
+    const { startProccess } = useProccess();
 
     const addCommand = () => {
     
@@ -51,7 +54,7 @@ export default defineComponent ({
         return;
       }
 
-      console.log(`command: ${inputCommand.value} exist`)
+      startProccess();
 
       props.history.push({
         id: Date.UTC(now.getFullYear(), now.getHours(), 

@@ -4,8 +4,14 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from 'vue';
 
+export default defineComponent ({
+  name: 'not-found',
+  setup() {
+  }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
