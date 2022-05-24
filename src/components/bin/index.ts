@@ -6,4 +6,5 @@ export { default as date } from './Date.vue';
 export { default as login } from './Login.vue';
 export { default as logout } from './Logout.vue';
 export { default as signup } from './Signup.vue';
+export { default as whoami } from './Whoami.vue';
 

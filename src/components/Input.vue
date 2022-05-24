@@ -19,6 +19,7 @@
 import { defineComponent, ref } from 'vue';
 import * as bin from './bin';
 import useProccess from '@/composables/useProccess';
+import getUser from '@/composables/getUser';
 
 export default defineComponent ({
   name: 'input-command',
@@ -27,6 +28,7 @@ export default defineComponent ({
     const inputCommand = ref<string>('');
     const historyIndex = ref<number>(props.history.length);
     const filter = ref(null);
+    const { user } = getUser();
 
     const { startProccess } = useProccess();
 
@@ -47,6 +49,7 @@ export default defineComponent ({
           input: inputCommand.value,
           process: 'not-found',
           arg: null,
+          userName: user.value ? user.value.displayName: 'guest',
         });
 
         historyIndex.value += 1;
@@ -62,6 +65,7 @@ export default defineComponent ({
         input: inputCommand.value,
         process: inputCommand.value,
         arg: null,
+        userName: user.value ? user.value.displayName: 'guest',
       });
       historyIndex.value += 1;
       inputCommand.value = '';
@@ -69,7 +73,6 @@ export default defineComponent ({
 
     const commandExist = () => {
       const commands = [...Object.keys(bin)];
-
       return commands.includes(inputCommand.value);
     }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div v-for="h in history" :key="h.id" class="history">
-      <shell-prompt :command="h.input" />
+      <shell-prompt :command="h.input" :userName="h.userName" />
       <component :is="h.process" />
     </div>
     <div v-if="!proccessIsRuning" class="commandInputLine">
@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onUpdated, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { about, helloWorld, banner, help, signup,
-date, login, logout } from '@/components/bin';
+date, login, logout, whoami } from '@/components/bin';
 import NotFound from '@/components/NotFound.vue';
 import Input from '@/components/Input.vue';
 import ShellPrompt from '@/components/ShellPrompt.vue';
@@ -28,12 +28,13 @@ interface History {
   input: string;
   process: string;
   args: string[] | null //for future update
+  userName: string,
 }
 
 export default defineComponent ({
   name: 'home',
   components: { about, helloWorld, banner, NotFound, login, 
-  logout, signup, Input, ShellPrompt, help, date },
+  logout, signup, Input, ShellPrompt, help, date, whoami },
   setup() {
     const { proccessIsRuning } = useProccess();
 
@@ -43,7 +44,8 @@ export default defineComponent ({
       now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
       input: '',
       process: 'banner',
-      args: null
+      args: null,
+      userName: 'admin',
     }]);
     
     return { history, proccessIsRuning }

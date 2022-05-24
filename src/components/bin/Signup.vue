@@ -28,7 +28,6 @@ export default defineComponent ({
     
       const res = await signup(email.value, password.value, displayName.value);
       if(!error.value) {
-          console.log('successfully signed in ;)');
           inputDisabled.value = true;
           endProccess();
       } 
