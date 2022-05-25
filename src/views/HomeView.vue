@@ -2,7 +2,7 @@
   <div class="home">
     <div v-for="h in history" :key="h.id" class="history">
       <shell-prompt :command="h.input" :userName="h.userName" />
-      <component :is="h.process" />
+      <component class="processus" :is="h.process" :args="h.args" />
     </div>
     <div v-if="!proccessIsRuning" class="commandInputLine">
       <shell-prompt />
@@ -44,7 +44,7 @@ export default defineComponent ({
       now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
       input: '',
       process: 'banner',
-      args: null,
+      args: ['1',],
       userName: 'admin',
     }]);
     
@@ -57,6 +57,7 @@ export default defineComponent ({
 <style lang="scss">
   body {
     text-align: left;
+  
   }
   .commandInputLine {
     display: flex;
@@ -64,6 +65,9 @@ export default defineComponent ({
   }
   .home {
     padding-top: 24px;
+  }
+  .processus {
+    margin: 20px 0;
   }
 
 </style>

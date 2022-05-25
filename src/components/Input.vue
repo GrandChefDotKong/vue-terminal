@@ -113,6 +113,9 @@ export default defineComponent ({
     border: none;
     background-color: inherit;
     color: inherit;
+    caret-color: var(--parimary-color);
+    margin-left: 4px;
+    font-size: large;
 
     :focus {
       outline: none;

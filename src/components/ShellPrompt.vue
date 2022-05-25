@@ -1,8 +1,10 @@
 <template>
-  <div class="shell-prompt">
-    <span v-if="userName" class="name">{{ userName }}</span>
-    <span v-else class="name">{{ user ? user.displayName : 'guest' }}</span>@<span class="domain">term.adodotkong</span>:~ 
-    <span v-if="props.command">{{ props.command }}</span>
+  <div>
+    <span class="shell-prompt">
+      <span v-if="userName" class="name">{{ userName }}</span>
+      <span v-else class="name">{{ user ? user.displayName : 'guest' }}</span>@<span class="domain">term.adodotkong</span>:~
+    </span> 
+    <span v-if="props.command" class="command">{{ props.command }}</span>
   </div>
 </template>
 
@@ -24,13 +26,32 @@ export default defineComponent ({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.shell-prompt {
+  white-space: normal;
+  color: white;
+  background-color: var(--primary-color);
+  padding: 2px 6px 2px 0;
+  width: fit-content;
+  border-radius: 10px 30px 30px 10px;
+}
 .name {
-  color: var(--cyan);
+  padding: 2px 6px;
+  margin-right: 6px;
+  color: white;
+  background-color: var(--cyan);
+  border-radius: 10px 30px 30px 10px;
 }
 .domain {
-  color: var(--magenta);
+  padding: 2px 6px;
+  margin-left: 6px;
+  margin-right: 6px;
+  color: white;
+  background-color: var(--magenta);
+  border-radius: 10px 30px 30px 10px;
 }
-.shell-prompt {
-  white-space: normal
+.command {
+  background-color: var(--primary-bg-color);
+  color: var(--primary-color);
+  padding: 2px 6px;
 }
 </style>
