@@ -7,16 +7,16 @@
 </template>
 
 <script lang="ts">
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 import { defineComponent } from 'vue';
 
 export default defineComponent ({
   name: 'about',
   setup() {
 
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
 
-    endProccess();
+    endCurrentProcess();
     
   }
 })

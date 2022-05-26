@@ -1,57 +1,53 @@
 <template>
   <div class="home">
-    <div v-for="h in history" :key="h.id" class="history">
+    <div v-for="h in processHistory" :key="h.id" class="history">
       <shell-prompt :command="h.input" :userName="h.userName" />
       <component class="processus" :is="h.process" :args="h.args" />
     </div>
-    <div v-if="!proccessIsRuning" class="commandInputLine">
+    <div v-if="!currentProcess?.isRunning" class="commandInputLine">
       <shell-prompt />
-      <Input :history="history" /> 
+      <Input :history="processHistory" /> 
     </div>
     <div v-else>
-      Procces runing ...
+      <component class="processus" :is="currentProcess.input" :args="currentProcess.args" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { about, helloWorld, banner, help, signup,
 date, login, logout, whoami } from '@/components/bin';
 import NotFound from '@/components/NotFound.vue';
 import Input from '@/components/Input.vue';
 import ShellPrompt from '@/components/ShellPrompt.vue';
-import useProccess from '@/composables/useProccess';
-
-interface History {
-  id: number,
-  input: string;
-  process: string;
-  args: string[] | null //for future update
-  userName: string,
-}
+import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
   name: 'home',
   components: { about, helloWorld, banner, NotFound, login, 
   logout, signup, Input, ShellPrompt, help, date, whoami },
   setup() {
-    const { proccessIsRuning } = useProccess();
-
-    const now = new Date;
-    const history = ref<History[]>([{
-      id: Date.UTC(now.getFullYear(), now.getHours(), 
-      now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
-      input: '',
-      process: 'banner',
-      args: ['1',],
-      userName: 'admin',
-    }]);
+    const { processHistory, currentProcess, 
+    setCurrentProcess, endCurrentProcess } = useProccess();
     
-    return { history, proccessIsRuning }
+    const now = new Date;
+    
+    setCurrentProcess({
+      id: Date.UTC(now.getFullYear(), now.getHours(), 
+        now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
+      input: 'banner',
+      process: 'banner',
+      args: ['0'],
+      userName: 'admin',
+      isRunning: true,
+    })
+
+    console.log(currentProcess.value);
+
+    return { processHistory, currentProcess }
   }
 })
-
 </script>
 
 <style lang="scss">

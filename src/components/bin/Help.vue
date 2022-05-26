@@ -8,16 +8,16 @@
 <script lang="ts">
 import * as bin from '../bin';
 import { defineComponent, ref } from 'vue';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 
 
 export default defineComponent ({
   name: 'help',
   setup() {
     const commands = ref<Object>([...Object.keys(bin)]);
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
 
-    endProccess();
+    endCurrentProcess();
 
     return { commands }
   }

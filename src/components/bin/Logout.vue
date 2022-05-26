@@ -8,14 +8,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import useSignout from '@/composables/useSignout';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 import getUser from '@/composables/getUser';
 
 export default defineComponent ({
   name: 'logout',
   setup() {
     const { error, signout } = useSignout();
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
     const { user } = getUser();
 
     const handleSignout = async () => {
@@ -26,7 +26,7 @@ export default defineComponent ({
     }
 
     handleSignout();
-    endProccess();
+    endCurrentProcess();
 
     return { error }
   }

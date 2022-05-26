@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
   name: 'date',
@@ -19,9 +19,9 @@ export default defineComponent ({
     }
     const today = new Date();
 
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
 
-    endProccess();
+    endCurrentProcess();
 
     return { today }
   }

@@ -7,15 +7,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
   name: 'helloWorld',
   setup() {
 
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
 
-    endProccess();
+    endCurrentProcess();
   }
 })
 </script>

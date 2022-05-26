@@ -3,12 +3,11 @@
     <input
       id="inputCommand"
       type="text" 
-      ref="filter"
       v-model="inputCommand"
       @keydown.enter.prevent="addCommand"
       @keydown.arrow-up.prevent="previousCommand"
       @keydown.arrow-down.prevent="nextCommand"
-      @keydown.ctrl.c="deleteHistory"
+      @keydown.ctrl.c="endProcess"
       autofocus
       autocomplete="off"
     >
@@ -18,55 +17,33 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import * as bin from './bin';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 import getUser from '@/composables/getUser';
 
 export default defineComponent ({
   name: 'input-command',
-  props: ['history'],
-  setup(props) {
+  setup() {
     const inputCommand = ref<string>('');
-    const historyIndex = ref<number>(props.history.length);
-    const filter = ref(null);
+    const historyIndex = ref<number>(0);
     const { user } = getUser();
 
-    const { startProccess } = useProccess();
+    const { setCurrentProcess, endCurrentProcess, 
+      processHistory, currentProcess } = useProccess();
 
     const addCommand = () => {
-    
-      if(!inputCommand.value) return
 
-      if(inputCommand.value === 'clear') {
-        deleteHistory();
-        return;
-      }
       const now = new Date;
 
-      if(!commandExist()) {
-        props.history.push({
-          id: Date.UTC(now.getFullYear(), now.getHours(), 
-            now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
-          input: inputCommand.value,
-          process: 'not-found',
-          arg: null,
-          userName: user.value ? user.value.displayName: 'guest',
-        });
-
-        historyIndex.value += 1;
-        inputCommand.value = '';
-        return;
-      }
-
-      startProccess();
-
-      props.history.push({
+      setCurrentProcess({
         id: Date.UTC(now.getFullYear(), now.getHours(), 
           now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
         input: inputCommand.value,
         process: inputCommand.value,
-        arg: null,
-        userName: user.value ? user.value.displayName: 'guest',
-      });
+        args: null,
+        userName: user.value?.displayName != null ? user.value.displayName : 'guest',
+        isRunning: false
+      })
+    
       historyIndex.value += 1;
       inputCommand.value = '';
     }
@@ -76,32 +53,17 @@ export default defineComponent ({
       return commands.includes(inputCommand.value);
     }
 
-    const deleteHistory = () => {
-      props.history.splice(0, props.history.length);
-      historyIndex.value = 0;
-      inputCommand.value = '';
-    }
-
     const previousCommand = () => {
-      if(historyIndex.value - 1 < 0) return;
-
-      historyIndex.value -= 1;
-      inputCommand.value = props.history[historyIndex.value].input;
     }
 
     const nextCommand = () => {
-      if(historyIndex.value + 1 > props.history.length) return;
-
-      historyIndex.value += 1;
-      inputCommand.value = props.history[historyIndex.value].input;
     }
 
-    const onBlur = (evt:any) => {
-      //filter.value?.focus();
+    const endProcess = () => {
     }
     
-    return { inputCommand, filter, addCommand, 
-      previousCommand, nextCommand, onBlur, deleteHistory }
+    return { inputCommand, addCommand, 
+      previousCommand, nextCommand, endProcess }
   } 
 })
 </script>

@@ -16,13 +16,13 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
   name: 'banner',
   props: ['args'],
   setup({ args }) {
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
 
     let index = '0';
 
@@ -45,14 +45,13 @@ export default defineComponent ({
            ░                ░                                                           `
     ]);
     
-    onMounted(() => {
-      endProccess();
-    });
 
     if(args && args[0] === '1') {
       index = '1';
     } 
     
+    endCurrentProcess();
+
     return { banner, index }
   }
 })  

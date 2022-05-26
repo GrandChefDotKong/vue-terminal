@@ -11,13 +11,13 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import useSignin from '@/composables/useSignin';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
   name: 'login',
   setup() {
     const { signin, error, isPending } = useSignin();
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
 
     const inputDisabled = ref(false);
 
@@ -30,7 +30,7 @@ export default defineComponent ({
       if(!error.value) {
           console.log('successfully signed in ;)');
           inputDisabled.value = true;
-          endProccess();
+          endCurrentProcess();
       } 
     }
 

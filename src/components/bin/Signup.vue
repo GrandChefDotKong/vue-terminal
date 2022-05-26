@@ -10,13 +10,13 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import useSignup from '@/composables/useSignup';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
   name: 'signup',
   setup() {
     const { signup, error } = useSignup();
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
 
     const inputDisabled = ref(false);
 
@@ -29,7 +29,7 @@ export default defineComponent ({
       const res = await signup(email.value, password.value, displayName.value);
       if(!error.value) {
           inputDisabled.value = true;
-          endProccess();
+          endCurrentProcess();
       } 
     }
 

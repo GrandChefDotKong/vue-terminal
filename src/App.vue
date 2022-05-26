@@ -2,7 +2,6 @@
   <router-view/>
 </template>
 
-
 <style lang="scss">
 :root {
   --primary-color: #b58900;
@@ -28,5 +27,4 @@ body {
   text-align: left;
   padding-left: 20px;
 }
-
 </style>

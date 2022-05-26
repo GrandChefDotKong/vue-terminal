@@ -5,16 +5,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import useProccess from '@/composables/useProccess';
+import useProccess from '@/composables/useProcess';
 import getUser from '@/composables/getUser';
 
 export default defineComponent ({
   name: 'whoami',
   setup() {
-    const { endProccess } = useProccess();
+    const { endCurrentProcess } = useProccess();
     const { user } = getUser();
 
-    endProccess();
+    endCurrentProcess();
     return { user }
   }
 })
