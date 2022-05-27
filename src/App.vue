@@ -16,8 +16,7 @@ body {
   background-color: var(--primary-bg-color);
   color: var(--primary-color);
   width: 100%;
-  height: 97vh;
-  border: 1px solid black;
+  height: 92vh;
 }
 
 #app {
@@ -26,5 +25,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
   padding-left: 20px;
+  height: 100%;
+
 }
 </style>

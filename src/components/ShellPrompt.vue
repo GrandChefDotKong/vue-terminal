@@ -32,14 +32,14 @@ export default defineComponent ({
   background-color: var(--primary-color);
   padding: 2px 6px 2px 0;
   width: fit-content;
-  border-radius: 10px 30px 30px 10px;
+  border-radius: 10px 20px 20px 10px;
 }
 .name {
   padding: 2px 6px;
   margin-right: 6px;
   color: white;
   background-color: var(--cyan);
-  border-radius: 10px 30px 30px 10px;
+  border-radius: 10px 20px 20px 10px;
 }
 .domain {
   padding: 2px 6px;
@@ -47,11 +47,21 @@ export default defineComponent ({
   margin-right: 6px;
   color: white;
   background-color: var(--magenta);
-  border-radius: 10px 30px 30px 10px;
+  border-radius: 10px 20px 20px 10px;
 }
 .command {
   background-color: var(--primary-bg-color);
   color: var(--primary-color);
   padding: 2px 6px;
 }
+
+#triangle-right {
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-left: 100px solid red;
+  border-bottom: 50px solid transparent;
+}
+
+
 </style>

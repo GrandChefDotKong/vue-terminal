@@ -1,7 +1,7 @@
 <template>
   <form @keydown.enter.prevent="handleSubmit">
     <label for="email">Email :</label>
-    <input type="text" name="email" v-model="email" :disabled="!isRunning" required><br>
+    <input type="text" name="email" v-model="email" :disabled="!isRunning" autofocus required><br>
     <label for="password">Password :</label>
     <input type="password" name="password" v-model="password" :disabled="!isRunning" required>
     <div v-if="error" class="error">{{ error }}</div>

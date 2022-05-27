@@ -17,6 +17,7 @@ const setCurrentProcess = (process : Process) => {
 }
 
 const setCommandNotFound = (inputCommand: string, user?: string) => {
+
     const now = new Date;
 
     currentProcess.value = {
@@ -28,6 +29,8 @@ const setCommandNotFound = (inputCommand: string, user?: string) => {
       userName: user ? user : 'guest',
       isRunning: false
     };
+
+    endCurrentProcess();
 }
 
 const deleteProcessHistory = () => {

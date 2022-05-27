@@ -1,8 +1,8 @@
 <template>
   <form @keydown.enter.prevent="handleSubmit">
-    <label for="email">Email :</label><input type="text" name="email" v-model="email" :disabled="inputDisabled" required><br>
-    <label for="password">Password :</label><input type="password" name="password" v-model="password" :disabled="inputDisabled" required><br>
-    <label for="displayName">Name :</label><input type="text" name="displayName" v-model="displayName" :disabled="inputDisabled" required><br>
+    <label for="email">Email :</label><input type="text" name="email" v-model="email" :disabled="isRunning" required><br>
+    <label for="password">Password :</label><input type="password" name="password" v-model="password" :disabled="!isRunning" required><br>
+    <label for="displayName">Name :</label><input type="text" name="displayName" v-model="displayName" :disabled="!isRunning" required><br>
     <div v-if="error" class="error">{{ error }}</div>
   </form>
 </template>
@@ -14,11 +14,11 @@ import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
   name: 'signup',
-  setup() {
+  props: ['isRunning'],
+  setup({ isRunning }) {
+    
     const { signup, error } = useSignup();
     const { endCurrentProcess } = useProccess();
-
-    const inputDisabled = ref(false);
 
     const email = ref('');
     const password = ref('');
@@ -28,12 +28,12 @@ export default defineComponent ({
     
       const res = await signup(email.value, password.value, displayName.value);
       if(!error.value) {
-          inputDisabled.value = true;
-          endCurrentProcess();
+        endCurrentProcess();
       } 
     }
 
-    return { handleSubmit, error, email, password, displayName, inputDisabled }
+    return { handleSubmit, error, email, password, 
+      displayName, isRunning }
   }
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" @keydown.ctrl.c="endProcess" tabindex="0">
     <div v-for="h in processHistory" :key="h.id" class="history">
       <shell-prompt :command="h.input" :userName="h.userName" />
       <component class="processus" :is="h.process" :args="h.args" :isRunning="false" />
@@ -28,7 +28,7 @@ export default defineComponent ({
   components: { about, helloWorld, banner, NotFound, login, 
   logout, signup, Input, ShellPrompt, help, date, whoami },
   setup() {
-    const { processHistory, currentProcess, 
+    const { processHistory, currentProcess, endCurrentProcess,
     setCurrentProcess } = useProccess();
     
     const now = new Date;
@@ -43,7 +43,11 @@ export default defineComponent ({
       isRunning: true,
     });
 
-    return { processHistory, currentProcess }
+    const endProcess = () => {
+      endCurrentProcess();
+    }
+
+    return { processHistory, currentProcess, endProcess }
   }
 })
 </script>
@@ -59,6 +63,7 @@ export default defineComponent ({
   }
   .home {
     padding-top: 24px;
+    min-height: 100%;
   }
   .processus {
     margin: 20px 0;
