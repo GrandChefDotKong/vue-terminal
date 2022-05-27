@@ -2,9 +2,9 @@ import Process from "@/types/Process";
 import { ref } from "vue";
 import * as bin from '@/components/bin';
 
-
 const processHistory = ref<Process[]>([]);
 const currentProcess = ref<Process | null>(null);
+const commandsList = [...Object.keys(bin)];
 
 const setCurrentProcess = (process : Process) => {
     if(!isCommandExist(process.input)) {
@@ -43,14 +43,13 @@ const endCurrentProcess = () => {
 }
 
 const isCommandExist = (inputCommand: string) => {
-  const commands = [...Object.keys(bin)];
 
-  return commands.includes(inputCommand);
+  return commandsList.includes(inputCommand);
 }
 
 
 const useProcess = () => {
-  return { setCurrentProcess, endCurrentProcess, 
+  return { setCurrentProcess, endCurrentProcess, deleteProcessHistory,
     processHistory, currentProcess }
 }
 

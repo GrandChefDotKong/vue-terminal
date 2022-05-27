@@ -1,9 +1,9 @@
 <template>
   <form @keydown.enter.prevent="handleSubmit">
     <label for="email">Email :</label>
-    <input type="text" name="email" v-model="email" :disabled="inputDisabled" required><br>
+    <input type="text" name="email" v-model="email" :disabled="!isRunning" required><br>
     <label for="password">Password :</label>
-    <input type="password" name="password" v-model="password" :disabled="inputDisabled" required>
+    <input type="password" name="password" v-model="password" :disabled="!isRunning" required>
     <div v-if="error" class="error">{{ error }}</div>
   </form>
 </template>
@@ -15,11 +15,10 @@ import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
   name: 'login',
-  setup() {
+  props: ['isRunning'],
+  setup({ isRunning }) {
     const { signin, error, isPending } = useSignin();
     const { endCurrentProcess } = useProccess();
-
-    const inputDisabled = ref(false);
 
     const email = ref('');
     const password = ref('');
@@ -28,13 +27,11 @@ export default defineComponent ({
 
       const res = await signin(email.value, password.value);
       if(!error.value) {
-          console.log('successfully signed in ;)');
-          inputDisabled.value = true;
           endCurrentProcess();
       } 
     }
 
-    return { handleSubmit, error, email, password, isPending, inputDisabled }
+    return { handleSubmit, error, email, password, isPending, isRunning }
   }
 })
 </script>

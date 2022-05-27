@@ -7,7 +7,6 @@
       @keydown.enter.prevent="addCommand"
       @keydown.arrow-up.prevent="previousCommand"
       @keydown.arrow-down.prevent="nextCommand"
-      @keydown.ctrl.c="endProcess"
       autofocus
       autocomplete="off"
     >
@@ -16,25 +15,35 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import * as bin from './bin';
 import useProccess from '@/composables/useProcess';
 import getUser from '@/composables/getUser';
+import Process from '@/types/Process';
 
 export default defineComponent ({
   name: 'input-command',
   setup() {
-    const inputCommand = ref<string>('');
-    const historyIndex = ref<number>(0);
-    const { user } = getUser();
-
-    const { setCurrentProcess, endCurrentProcess, 
+    const { setCurrentProcess, deleteProcessHistory, 
       processHistory, currentProcess } = useProccess();
+
+    const inputCommand = ref<string>('');
+    const historyIndex = ref<number>(processHistory.value.length);
+    const { user } = getUser();
 
     const addCommand = () => {
 
+      if(!inputCommand.value) return; 
+      if(currentProcess.value) return;
+
+      if(inputCommand.value === 'clear') {
+        deleteProcessHistory();
+        historyIndex.value = 0;
+        inputCommand.value = '';
+        return;
+      }
+
       const now = new Date;
 
-      setCurrentProcess({
+      const process: Process = {
         id: Date.UTC(now.getFullYear(), now.getHours(), 
           now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
         input: inputCommand.value,
@@ -42,28 +51,34 @@ export default defineComponent ({
         args: null,
         userName: user.value?.displayName != null ? user.value.displayName : 'guest',
         isRunning: false
-      })
+      }
+
+      setCurrentProcess(process)
     
       historyIndex.value += 1;
       inputCommand.value = '';
     }
 
-    const commandExist = () => {
-      const commands = [...Object.keys(bin)];
-      return commands.includes(inputCommand.value);
-    }
-
     const previousCommand = () => {
+      if(historyIndex.value - 1 > 0) --historyIndex.value;
+      inputCommand.value = processHistory.value?.[historyIndex.value].input;
     }
 
     const nextCommand = () => {
-    }
+      if(historyIndex.value + 1 > processHistory.value.length) return;
 
-    const endProcess = () => {
+      ++historyIndex.value;
+
+      if(historyIndex.value === processHistory.value.length) {
+        inputCommand.value = '';
+        return;
+      }
+
+      inputCommand.value = processHistory.value?.[historyIndex.value].input;
     }
     
     return { inputCommand, addCommand, 
-      previousCommand, nextCommand, endProcess }
+      previousCommand, nextCommand }
   } 
 })
 </script>

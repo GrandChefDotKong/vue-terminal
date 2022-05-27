@@ -2,14 +2,14 @@
   <div class="home">
     <div v-for="h in processHistory" :key="h.id" class="history">
       <shell-prompt :command="h.input" :userName="h.userName" />
-      <component class="processus" :is="h.process" :args="h.args" />
+      <component class="processus" :is="h.process" :args="h.args" :isRunning="false" />
     </div>
     <div v-if="!currentProcess?.isRunning" class="commandInputLine">
       <shell-prompt />
-      <Input :history="processHistory" /> 
+      <Input /> 
     </div>
     <div v-else>
-      <component class="processus" :is="currentProcess.input" :args="currentProcess.args" />
+      <component class="processus" :is="currentProcess.input" :args="currentProcess.args" :isRunning="true" />
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default defineComponent ({
   logout, signup, Input, ShellPrompt, help, date, whoami },
   setup() {
     const { processHistory, currentProcess, 
-    setCurrentProcess, endCurrentProcess } = useProccess();
+    setCurrentProcess } = useProccess();
     
     const now = new Date;
     
@@ -41,9 +41,7 @@ export default defineComponent ({
       args: ['0'],
       userName: 'admin',
       isRunning: true,
-    })
-
-    console.log(currentProcess.value);
+    });
 
     return { processHistory, currentProcess }
   }
