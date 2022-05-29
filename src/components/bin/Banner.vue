@@ -4,7 +4,7 @@
       {{ banner[parseInt(index)] }}
     </div>
     <div class="version">
-      v1.0.0
+      v0.9.0
     </div>
     <div class="welcome">
       __Welcome on my page 🎊 <br>
