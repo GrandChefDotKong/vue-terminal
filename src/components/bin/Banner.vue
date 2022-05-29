@@ -44,6 +44,8 @@ export default defineComponent ({
       ░  ░   ░        ░ ░     ░        ░ ░           ░  ░       ░ ░           ░       ░ 
            ░                ░                                                           `
     ]);
+
+    console.log(args)
     
 
     if(args && args[0] === '1') {

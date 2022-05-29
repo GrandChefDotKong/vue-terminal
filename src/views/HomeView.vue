@@ -2,14 +2,11 @@
   <div class="home" @keydown.ctrl.c="endProcess" tabindex="0">
     <div v-for="h in processHistory" :key="h.id" class="history">
       <shell-prompt :command="h.input" :userName="h.userName" />
-      <component class="processus" :is="h.process" :args="h.args" :isRunning="false" />
+      <component class="processus" :is="h.process" :args="h.args" :isRunning="h.isRunning" />
     </div>
-    <div v-if="!currentProcess?.isRunning" class="commandInputLine">
+    <div v-if="!getCurrentProcess()" class="commandInputLine">
       <shell-prompt />
       <Input /> 
-    </div>
-    <div v-else>
-      <component class="processus" :is="currentProcess.input" :args="currentProcess.args" :isRunning="true" />
     </div>
   </div>
 </template>
@@ -28,14 +25,11 @@ export default defineComponent ({
   components: { about, helloWorld, banner, NotFound, login, 
   logout, signup, Input, ShellPrompt, help, date, whoami },
   setup() {
-    const { processHistory, currentProcess, endCurrentProcess,
+    const { processHistory, getCurrentProcess, endCurrentProcess,
     setCurrentProcess } = useProccess();
     
-    const now = new Date;
-    
     setCurrentProcess({
-      id: Date.UTC(now.getFullYear(), now.getHours(), 
-        now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
+      id: processHistory.value.length,
       input: 'banner',
       process: 'banner',
       args: ['0'],
@@ -47,7 +41,7 @@ export default defineComponent ({
       endCurrentProcess();
     }
 
-    return { processHistory, currentProcess, endProcess }
+    return { processHistory, getCurrentProcess, endProcess }
   }
 })
 </script>

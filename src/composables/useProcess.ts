@@ -3,57 +3,56 @@ import { ref } from "vue";
 import * as bin from '@/components/bin';
 
 const processHistory = ref<Process[]>([]);
-const currentProcess = ref<Process | null>(null);
 const commandsList = [...Object.keys(bin)];
 
 const setCurrentProcess = (process : Process) => {
-    if(!isCommandExist(process.input)) {
-        setCommandNotFound(process.input, process.userName);
-        return;
-    }
+  if(!isCommandExist(process.process)) {
+    setCommandNotFound(process.input, process.userName);
+    return;
+  }
 
-    currentProcess.value = process;
-    currentProcess.value.isRunning = true;
+  process.isRunning = true;
+  processHistory.value.push(process);
 }
 
 const setCommandNotFound = (inputCommand: string, user?: string) => {
 
-    const now = new Date;
-
-    currentProcess.value = {
-      id: Date.UTC(now.getFullYear(), now.getHours(), 
-        now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
-      input: inputCommand,
-      process: 'not-found',
-      args: null,
-      userName: user ? user : 'guest',
-      isRunning: false
-    };
-
-    endCurrentProcess();
+  processHistory.value.push({
+    id: processHistory.value.length,
+    input: inputCommand,
+    process: 'not-found',
+    args: null,
+    userName: user ? user : 'guest',
+    isRunning: false
+  })
 }
 
 const deleteProcessHistory = () => {
-    processHistory.value = [];
-    currentProcess.value = null;
+  processHistory.value = [];
+}
+
+const getCurrentProcess = (): Process | null => {
+
+  if(!processHistory.value.length) return null 
+  if(!processHistory.value[processHistory.value.length -1].isRunning) return null;
+  
+  return processHistory.value[processHistory.value.length -1];;
 }
 
 const endCurrentProcess = () => {
-    if(currentProcess.value !== null) {
-      processHistory.value.push(currentProcess.value);
-      currentProcess.value = null;
-    }
+  if(!processHistory.value.length) return;
+  if(!processHistory.value[processHistory.value.length -1].isRunning) return;
+
+  processHistory.value[processHistory.value.length -1].isRunning = false;
 }
 
 const isCommandExist = (inputCommand: string) => {
-
   return commandsList.includes(inputCommand);
 }
 
-
 const useProcess = () => {
-  return { setCurrentProcess, endCurrentProcess, deleteProcessHistory,
-    processHistory, currentProcess }
+  return { setCurrentProcess, deleteProcessHistory,
+    getCurrentProcess, endCurrentProcess ,processHistory }
 }
 
 export default useProcess;

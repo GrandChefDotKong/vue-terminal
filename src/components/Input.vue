@@ -23,7 +23,7 @@ export default defineComponent ({
   name: 'input-command',
   setup() {
     const { setCurrentProcess, deleteProcessHistory, 
-      processHistory, currentProcess } = useProccess();
+      processHistory, getCurrentProcess } = useProccess();
 
     const inputCommand = ref<string>('');
     const historyIndex = ref<number>(processHistory.value.length);
@@ -32,7 +32,7 @@ export default defineComponent ({
     const addCommand = () => {
 
       if(!inputCommand.value) return; 
-      if(currentProcess.value) return;
+      if(getCurrentProcess()) return;
 
       if(inputCommand.value === 'clear') {
         deleteProcessHistory();
@@ -41,14 +41,15 @@ export default defineComponent ({
         return;
       }
 
-      const now = new Date;
+      const command: string[] = inputCommand.value.split(" ");
+
+      const input = command.splice(0, 1);
 
       const process: Process = {
-        id: Date.UTC(now.getFullYear(), now.getHours(), 
-          now.getMinutes(), now.getSeconds(), now.getMilliseconds()),
+        id: processHistory.value.length,
         input: inputCommand.value,
-        process: inputCommand.value,
-        args: null,
+        process: input.toString(),
+        args: command.length ? command : null,
         userName: user.value?.displayName != null ? user.value.displayName : 'guest',
         isRunning: false
       }
