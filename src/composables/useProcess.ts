@@ -32,11 +32,16 @@ const deleteProcessHistory = () => {
 }
 
 const getCurrentProcess = (): Process | null => {
-
   if(!processHistory.value.length) return null 
   if(!processHistory.value[processHistory.value.length -1].isRunning) return null;
   
-  return processHistory.value[processHistory.value.length -1];;
+  return processHistory.value[processHistory.value.length -1];
+}
+
+const getCommandList = (): string[] | null => {
+  if(!commandsList.length) return null;
+  
+  return commandsList;
 }
 
 const endCurrentProcess = () => {
@@ -51,7 +56,7 @@ const isCommandExist = (inputCommand: string) => {
 }
 
 const useProcess = () => {
-  return { setCurrentProcess, deleteProcessHistory,
+  return { setCurrentProcess, deleteProcessHistory, getCommandList,
     getCurrentProcess, endCurrentProcess ,processHistory }
 }
 

@@ -11,12 +11,7 @@ import useProccess from '@/composables/useProcess';
 export default defineComponent ({
   name: 'date',
   setup() {
-    const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }
+    
     const today = new Date();
 
     const { endCurrentProcess } = useProccess();

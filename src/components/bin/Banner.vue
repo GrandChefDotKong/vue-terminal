@@ -63,6 +63,7 @@ export default defineComponent ({
 <style scoped lang="scss">
 .banner {
   white-space: pre;
+  width: fit-content;
 }
 .version {
   text-align: right;
