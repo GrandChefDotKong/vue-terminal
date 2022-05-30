@@ -2,9 +2,9 @@
     <div class="world" ref="worldEl">
         <div class="score" ref="scoreEl">0</div>
         <div class="start-screen" ref="startScreenEl">Press any key to start</div>
-        <img src="@/assets/game/ground.png" alt="ground" class="ground" ref="groundEl1">
-        <img src="@/assets/game/ground.png" alt="ground" class="ground" ref="groundEl2">
-        <img src="@/assets/game/dino-stationary.png" alt="dino" class="dino" ref="dinoEl">
+        <img src="@/assets/game/ground.svg" alt="ground" class="ground" ref="groundEl1">
+        <img src="@/assets/game/ground.svg" alt="ground" class="ground" ref="groundEl2">
+        <img src="@/assets/game/dino-stationary.svg" alt="dino" class="dino" ref="dinoEl">
     </div>
 </template>
 
@@ -188,6 +188,7 @@ body {
     left: 1%;
     height: 20%;
     bottom: calc(var(--bottom) * 1%);
+    fill: var(--primary-color);
 }
 </style>
 <style>
@@ -196,6 +197,7 @@ body {
     left: calc(var(--left) * 1%);
     bottom: 0;
     height: 20%;
+    color: var(--primary-color);
 }
 </style>
 

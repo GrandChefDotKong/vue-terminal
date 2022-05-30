@@ -4,7 +4,7 @@ import {
     getCustomProperty,
   } from "./updateCustomProperty"
   
-  const SPEED = 0.05;
+  const SPEED = 0.03;
   const CACTUS_INTERVAL_MIN = 500;
   const CACTUS_INTERVAL_MAX = 2000;
   
@@ -42,7 +42,7 @@ import {
   function createCactus(worldElem: HTMLElement) {
     const cactus = document.createElement("img");
     cactus.dataset.cactus = 'true';
-    cactus.src = "./game/cactus.png";
+    cactus.src = "./game/cactus.svg";
     cactus.classList.add("cactus");
     setCustomProperty(cactus, "--left", 100);
     worldElem.append(cactus);

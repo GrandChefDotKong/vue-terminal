@@ -31,44 +31,44 @@ export function updateDino(dinoElem: HTMLImageElement, delta: number, speedScale
 }
 
 export function getDinoRect(dinoElem: HTMLImageElement) {
-  return dinoElem.getBoundingClientRect()
+  return dinoElem.getBoundingClientRect();
 }
 
 export function setDinoLose(dinoElem: HTMLImageElement) {
-  dinoElem.src = "./game/dino-lose.png"
+  dinoElem.src = "./game/dino-lose.svg"
 }
 
 function handleRun(dinoElem: HTMLImageElement, delta: number, speedScale: number) {
   if (isJumping) {
-    dinoElem.src = `./game/dino-stationary.png`
-    return
+    dinoElem.src = `./game/dino-stationary.svg`;
+    return;
   }
 
   if (currentFrameTime >= FRAME_TIME) {
-    dinoFrame = (dinoFrame + 1) % DINO_FRAME_COUNT
-    dinoElem.src = `./game/dino-run-${dinoFrame}.png`
-    currentFrameTime -= FRAME_TIME
+    dinoFrame = (dinoFrame + 1) % DINO_FRAME_COUNT;
+    dinoElem.src = `./game/dino-run-${dinoFrame}.svg`;
+    currentFrameTime -= FRAME_TIME;
   }
-  currentFrameTime += delta * speedScale
+
+  currentFrameTime += delta * speedScale;
 }
 
 function handleJump(dinoElem: HTMLImageElement, delta: number) {
-  if (!isJumping) return
+  if (!isJumping) return;
 
-  incrementCustomProperty(dinoElem, "--bottom", yVelocity * delta)
+  incrementCustomProperty(dinoElem, "--bottom", yVelocity * delta);
 
   if (getCustomProperty(dinoElem, "--bottom") <= 0) {
-    setCustomProperty(dinoElem, "--bottom", 0)
-    isJumping = false
+    setCustomProperty(dinoElem, "--bottom", 0);
+    isJumping = false;
   }
 
-  yVelocity -= GRAVITY * delta
+  yVelocity -= GRAVITY * delta;
 }
 
 function onJump(e: KeyboardEvent) {
-  console.log('jump')
-  if (e.code !== "Space" || isJumping) return
+  if (e.code !== "Space" || isJumping) return;
 
-  yVelocity = JUMP_SPEED
-  isJumping = true
+  yVelocity = JUMP_SPEED;
+  isJumping = true;
 }
