@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import getUser from '@/composables/getUser';
+import getUser from '@/composables/auth/getUser';
 
 export default defineComponent ({
   name: 'input-command',

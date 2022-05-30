@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { projectAuth } from '../firebase/config';
+import { projectAuth } from '@/firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 const error = ref<string | null>(null);

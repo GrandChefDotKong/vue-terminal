@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { about, helloWorld, banner, help, signup,
-date, login, logout, whoami } from '@/components/bin';
+date, login, logout, whoami, game } from '@/components/bin';
 import NotFound from '@/components/NotFound.vue';
 import Input from '@/components/Input.vue';
 import ShellPrompt from '@/components/ShellPrompt.vue';
@@ -23,7 +23,7 @@ import useProccess from '@/composables/useProcess';
 export default defineComponent ({
   name: 'home',
   components: { about, helloWorld, banner, NotFound, login, 
-  logout, signup, Input, ShellPrompt, help, date, whoami },
+  logout, signup, Input, ShellPrompt, help, date, whoami, game },
   setup() {
     const { processHistory, getCurrentProcess, endCurrentProcess,
     setCurrentProcess } = useProccess();
@@ -49,7 +49,6 @@ export default defineComponent ({
 <style lang="scss">
   body {
     text-align: left;
-  
   }
   .commandInputLine {
     display: flex;

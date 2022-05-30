@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import useSignin from '@/composables/useSignin';
+import useSignin from '@/composables/auth/useSignin';
 import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({
@@ -27,7 +27,7 @@ export default defineComponent ({
 
       const res = await signin(email.value, password.value);
       if(!error.value) {
-          endCurrentProcess();
+        endCurrentProcess();
       } 
     }
 

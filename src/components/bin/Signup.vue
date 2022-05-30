@@ -1,6 +1,6 @@
 <template>
   <form @keydown.enter.prevent="handleSubmit">
-    <label for="email">Email :</label><input type="text" name="email" v-model="email" :disabled="isRunning" required><br>
+    <label for="email">Email :</label><input type="text" name="email" v-model="email" :disabled="!isRunning" required><br>
     <label for="password">Password :</label><input type="password" name="password" v-model="password" :disabled="!isRunning" required><br>
     <label for="displayName">Name :</label><input type="text" name="displayName" v-model="displayName" :disabled="!isRunning" required><br>
     <div v-if="error" class="error">{{ error }}</div>
@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import useSignup from '@/composables/useSignup';
+import useSignup from '@/composables/auth/useSignup';
 import useProccess from '@/composables/useProcess';
 
 export default defineComponent ({

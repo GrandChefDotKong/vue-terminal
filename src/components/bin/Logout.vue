@@ -7,9 +7,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import useSignout from '@/composables/useSignout';
+import useSignout from '@/composables/auth/useSignout';
 import useProccess from '@/composables/useProcess';
-import getUser from '@/composables/getUser';
+import getUser from '@/composables/auth/getUser';
 
 export default defineComponent ({
   name: 'logout',

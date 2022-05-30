@@ -6,7 +6,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import useProccess from '@/composables/useProcess';
-import getUser from '@/composables/getUser';
+import getUser from '@/composables/auth/getUser';
 
 export default defineComponent ({
   name: 'whoami',

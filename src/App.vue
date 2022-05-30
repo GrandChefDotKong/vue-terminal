@@ -15,8 +15,7 @@
 body {
   background-color: var(--primary-bg-color);
   color: var(--primary-color);
-  width: 100%;
-  height: 92vh;
+  overflow-x: hidden;
 }
 
 #app {
@@ -24,8 +23,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
-  padding-left: 20px;
+  padding: 0px;
+  margin: 0px;
   height: 100%;
-
+  min-height: 95vh;
 }
 </style>

@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import useProccess from '@/composables/useProcess';
-import getUser from '@/composables/getUser';
+import getUser from '@/composables/auth/getUser';
 import Process from '@/types/Process';
 
 export default defineComponent ({
@@ -97,10 +97,10 @@ export default defineComponent ({
 
     :focus {
       outline: none;
+      border-bottom: 1px solid var(--primary-color)
     }
   }
   *:focus {
     outline: none;
-    border-bottom: 1px solid var(--primary-color)
   }
 </style>
