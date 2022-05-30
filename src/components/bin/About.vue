@@ -10,6 +10,8 @@
     <li>Add auto scroll</li>
     <li>Add more games</li>
     <li>Add "man" command</li>
+    <li>Dark mode</li>
+    <li>GUI</li>
     <li>Command args error</li>
     <li>...</li>
   </ul>

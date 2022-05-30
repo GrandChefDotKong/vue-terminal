@@ -49,10 +49,9 @@ export default defineComponent ({
         worldEl.value.style.height = `${WORLD_HEIGHT * worldToPixelScale}px`;
       }
 
-      setPixelToWorldScale()
-      window.addEventListener("resize", setPixelToWorldScale)
-      document.addEventListener("keydown", handleStart, { once: true })
-
+      setPixelToWorldScale();
+      window.addEventListener("resize", setPixelToWorldScale);
+      document.addEventListener("keydown", handleStart, { once: true });
 
       function update(time: number) {
         if (lastTime == null) {
@@ -185,9 +184,10 @@ body {
 .dino {
     --bottom: 0;
     position: absolute;
-    left: 1%;
+    --left: 0;
     height: 20%;
     bottom: calc(var(--bottom) * 1%);
+    left: calc(var(--left) * 1%);
     fill: var(--primary-color);
 }
 </style>
